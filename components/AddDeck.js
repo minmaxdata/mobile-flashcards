@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import uuid from "uuid";
 import { getFlashcardData } from "../utils/helpers";
+import TextButton from "./TextButton";
 
 function SubmitBtn({ onPress }) {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>SUBMIT</Text>
-    </TouchableOpacity>
-  );
+  return <TextButton onPress={onPress}>SUBMIT</TextButton>;
 }
 export default class AddDeck extends Component {
   state = {

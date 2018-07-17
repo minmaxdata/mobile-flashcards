@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import { getFlashcardData } from "../utils/helpers";
 
 export default class ListDecks extends Component {
@@ -13,13 +13,17 @@ export default class ListDecks extends Component {
     return (
       <View>
         {Object.keys(decks).map(key => {
-          const { title, uuid, questions } = decks[key];
-          const value = this.state[key];
-
           return (
-            <View key={uuid}>
-              <Text>{title}</Text>
-              <Text>{questions.length}</Text>
+            <View key={key.uuid}>
+              <FlatList
+                key={key}
+                data={[key]}
+                renderItem={({ item }) => (
+                  <View>
+                    <Text>{item}</Text>
+                  </View>
+                )}
+              />
             </View>
           );
         })}
