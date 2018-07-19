@@ -1,6 +1,12 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
-import uuid from "uuid";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  TextInput,
+  StyleSheet,
+  KeyboardAvoidingView
+} from "react-native";
 import { getFlashcardData } from "../utils/helpers";
 import TextButton from "./TextButton";
 
@@ -13,8 +19,13 @@ export default class AddDeck extends Component {
     uuid: "",
     questions: []
   };
+  handleTextChange = title => {
+    this.setState(() => {
+      title;
+    });
+  };
   submit = () => {
-    const key = uuid();
+    const key = 24;
     const entry = this.state;
 
     // Update Redux
@@ -28,10 +39,33 @@ export default class AddDeck extends Component {
     // Clear local notification
   };
   render() {
+    const { title, uuid, questions } = this.state;
     return (
-      <View>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <TextInput
+          style={styles.input}
+          value={title}
+          onChangeText={this.handleTextChange}
+        />
         <SubmitBtn onPress={this.submit} />
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItem: "center",
+    justifyContent: "center",
+    paddingTop: 25,
+    backgroundColor: "#ecf0f1"
+  },
+  input: {
+    width: 200,
+    height: 44,
+    padding: 0,
+    borderWidth: 1,
+    borderColor: "#757575",
+    margin: 50
+  }
+});

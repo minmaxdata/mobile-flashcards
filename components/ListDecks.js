@@ -14,16 +14,8 @@ export default class ListDecks extends Component {
       <View>
         {Object.keys(decks).map(key => {
           return (
-            <View key={key.uuid}>
-              <FlatList
-                key={key}
-                data={[key]}
-                renderItem={({ item }) => (
-                  <View>
-                    <Text>{item}</Text>
-                  </View>
-                )}
-              />
+            <View key={key}>
+              <Text>{key} </Text>;
             </View>
           );
         })}
