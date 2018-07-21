@@ -5,7 +5,8 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  AsyncStorage
 } from "react-native";
 import { getFlashcardData } from "../utils/helpers";
 import TextButton from "./TextButton";
@@ -55,7 +56,7 @@ export default class AddDeck extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItem: "center",
+    alignItems: "center",
     justifyContent: "center",
     paddingTop: 25,
     backgroundColor: "#ecf0f1"

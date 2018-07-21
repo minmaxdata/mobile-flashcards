@@ -70,8 +70,8 @@ export function setLocalNotification() {
     });
 }
 export function getFlashcardData(deck) {
-  const decks = {
-    React: {
+  const decks = [
+    {
       title: "React",
       uuid: 1,
       questions: [
@@ -87,7 +87,7 @@ export function getFlashcardData(deck) {
         }
       ]
     },
-    JavaScript: {
+    {
       title: "JavaScript",
       uuid: 2,
       questions: [
@@ -99,6 +99,6 @@ export function getFlashcardData(deck) {
         }
       ]
     }
-  };
+  ];
   return typeof deck === typeof undefined ? decks : decks[deck];
 }

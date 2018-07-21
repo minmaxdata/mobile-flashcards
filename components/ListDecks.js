@@ -1,25 +1,38 @@
 import React, { Component } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, StyleSheet, AsyncStorage } from "react-native";
 import { getFlashcardData } from "../utils/helpers";
 
+function Deck({ title, uuid, questions }) {
+  return (
+    <View key={uuid}>
+      <Text>{title}</Text>
+    </View>
+  );
+}
 export default class ListDecks extends Component {
   state = {
     decks: ""
   };
+  renderItem = ({ item }) => {
+    return <Deck {...item} />;
+  };
   render() {
-    const decks = getFlashcardData();
-    console.log("decks ", decks);
+    const list = getFlashcardData();
+    console.log(list);
 
     return (
-      <View>
-        {Object.keys(decks).map(key => {
-          return (
-            <View key={key}>
-              <Text>{key} </Text>;
-            </View>
-          );
-        })}
+      <View style={styles.container}>
+        <FlatList data={list} renderItem={this.renderItem} />
       </View>
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    paddingTop: 40
+  }
+});
