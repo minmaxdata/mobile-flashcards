@@ -22,10 +22,13 @@ class AddDeck extends Component {
   submit = () => {
     //clearStorage();
     const { title } = this.state;
-
-    this.props.deckAdd(title);
+    const id = title.toLowerCase();
+    const deck = {
+      [id]: { title: title, questions: [] }
+    };
+    //this.props.deckAdd(title);
     //this.props.navigation.navigate("Deck", { deckId });
-    saveDeckTitle(title);
+    saveDeckTitle(deck);
 
     // Navigate to home
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { decksRetrieve } from "../actions";
-import { getDecks } from "../utils/api";
+import { getDecks, clearStorage } from "../utils/api";
 import { AppLoading } from "expo";
 
 function Deck({ title, questions }) {
@@ -29,11 +29,13 @@ class ListDecks extends Component {
     const { decks } = this.props;
     const { ready } = this.state;
     var obj = { javascript: { title: "javascript" } };
-    console.log(decks);
+    //clearStorage();
+
+    console.log("decks", decks);
     if (ready === false) {
       return <AppLoading />;
     }
-    /*
+
     if (decks === undefined) {
       return (
         <View style={styles.container}>
@@ -41,16 +43,8 @@ class ListDecks extends Component {
         </View>
       );
     }
-*/
-    return (
-      <View style={styles.container}>
-        <FlatList
-          data={Object.values(decks)}
-          renderItem={this.renderItem}
-          keyExtractor={item => item.title}
-        />
-      </View>
-    );
+
+    return <View style={styles.container} />;
   }
 }
 const styles = StyleSheet.create({

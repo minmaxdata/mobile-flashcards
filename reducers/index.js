@@ -1,40 +1,16 @@
 import { DECKS_RETRIEVE, DECK_ADD, CARD_ADD } from "../actions";
 
-const initialState = {
-  decks: {}
-};
+const initialState = {};
 
 function decks(state = initialState, action) {
   console.log(" decks reducer ", state.decks, action);
   switch (action.type) {
     case DECKS_RETRIEVE:
-      return {
-        ...state,
-        decks: action.decks
-      };
+      return { ...state, ...action.decks };
     case DECK_ADD:
-      return {
-        ...state,
-        decks: {
-          ...state.decks,
-          [action.title.toLowerCase()]: {
-            title: action.title,
-            questions: []
-          }
-        }
-      };
+      return { ...state, ...action.deck };
     case CARD_ADD:
-      const { id, card } = action;
-      return {
-        ...state,
-        decks: {
-          ...state.decks,
-          [id]: {
-            ...state.decks[id],
-            questions: [...state.decks[id].questions, card]
-          }
-        }
-      };
+      return {};
     default:
       return state;
   }

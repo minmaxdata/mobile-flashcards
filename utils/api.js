@@ -13,17 +13,17 @@ export function getDecks() {
 export const getDeck = deckId => {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => {
     const decks = JSON.parse(result);
+    console.log("decks ", decks);
     return decks[deckId];
   });
 };
-export function saveDeckTitle(title) {
-  console.log("title", title);
-  const id = title.toLowerCase();
+export function saveDeckTitle(deck) {
+  console.log("deck", deck);
+
   return AsyncStorage.mergeItem(
     DECKS_STORAGE_KEY,
     JSON.stringify({
-      [id]: title,
-      questions: []
+      deck
     })
   );
 }
