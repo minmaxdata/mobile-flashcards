@@ -5,8 +5,7 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  KeyboardAvoidingView,
-  AsyncStorage
+  KeyboardAvoidingView
 } from "react-native";
 import { deckAdd } from "../actions";
 import { connect } from "react-redux";
@@ -24,6 +23,7 @@ class AddDeck extends Component {
     const { title } = this.state;
 
     console.log("state ", JSON.stringify(this.state));
+    console.log("props ", this.props);
     this.props.dispatch(deckAdd(title));
     //this.props.navigation.navigate("Deck", { deckId });
     saveDeckTitle(title);
@@ -66,7 +66,12 @@ const styles = StyleSheet.create({
     margin: 50
   }
 });
+function mapDispatchToProps(dispatch) {
+  return {
+    deckAdd: title => dispatch(deckAdd(title))
+  };
+}
 export default connect(
   null,
-  { deckAdd }
+  mapDispatchToProps
 )(AddDeck);
