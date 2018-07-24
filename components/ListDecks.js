@@ -1,28 +1,40 @@
 import React, { Component } from "react";
-import { View, Text, FlatList, StyleSheet, AsyncStorage } from "react-native";
-import { getFlashcardData } from "../utils/helpers";
+import { View, Text, FlatList, StyleSheet } from "react-native";
+import { connect } from "react-redux";
+import { decksRetrieve } from "../actions";
+import { getDecks } from "../utils/api";
 
-function Deck({ title, uuid, questions }) {
+function Deck({ title, questions }) {
   return (
-    <View key={uuid}>
+    <View key={title}>
       <Text>{title}</Text>
     </View>
   );
 }
-export default class ListDecks extends Component {
-  state = {
-    decks: ""
-  };
+class ListDecks extends Component {
+  async componentDidMount() {
+    const { dispatch } = this.props;
+    const json = await getDecks();
+    dispatch(decksRetrieve(JSON.parse(data)));
+  }
   renderItem = ({ item }) => {
     return <Deck {...item} />;
   };
   render() {
-    const list = getFlashcardData();
-    console.log(list);
+    const decks = this.props.decks;
+    console.log(decks);
+
+    if (decks === null) {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.title}>No flashcards available</Text>
+        </View>
+      );
+    }
 
     return (
       <View style={styles.container}>
-        <FlatList data={list} renderItem={this.renderItem} />
+        <FlatList data={Object.values(decks)} renderItem={this.renderItem} />
       </View>
     );
   }
@@ -36,3 +48,4 @@ const styles = StyleSheet.create({
     paddingTop: 40
   }
 });
+export default connect(state => state)(ListDecks);

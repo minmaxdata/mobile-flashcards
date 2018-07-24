@@ -14,7 +14,7 @@ import TextButton from "./TextButton";
 function SubmitBtn({ onPress }) {
   return <TextButton onPress={onPress}>SUBMIT</TextButton>;
 }
-export default class AddDeck extends Component {
+class AddDeck extends Component {
   state = {
     title: "",
     uuid: "",

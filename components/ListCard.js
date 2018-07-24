@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text } from "react-native";
 import { getFlashcardData } from "../utils/helpers";
 
-export default class ListCard extends Component {
+class ListCard extends Component {
   state = {
     question: "",
     answer: "",

@@ -1,51 +1,35 @@
 import React from "react";
+import { Text, View, StyleSheet } from "react-native";
+import ListDecks from "./components/ListDecks";
+import AddDeck from "./components/AddDeck";
+import rootReducer from "./reducers";
 import { Provider } from "react-redux";
+import { AsyncStorage } from "react-native";
 import { applyMiddleware, createStore, compose } from "redux";
-import { StyleSheet, View } from "react-native";
 import { createLogger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { persistStore, persistReducer } from "redux-persist";
-import { AppLoading } from "expo";
-import { PersistGate } from "redux-persist/integration/react";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web and AsyncStorage for react-native
-import rootReducer from "./reducers";
-import AddDeck from "./components/AddDeck";
 
-const persistConfig = {
-  key: "flashcards",
-  storage
-};
 const middlewares = [];
 middlewares.push(createLogger());
-const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(
-  persistedReducer,
+  rootReducer,
   {},
   composeWithDevTools(applyMiddleware(...middlewares))
 );
 
 export default class App extends React.Component {
-  state = {
-    isReady: false
-  };
   render() {
-    const persistor = persistStore(store, {}, () => {
-      this.setState({ isReady: true });
-    });
-    if (!this.state.isReady) {
-      return <AppLoading />;
-    }
     return (
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <View style={styles.container}>
-            <AddDeck />
-          </View>
-        </PersistGate>
+        <View style={{ flex: 1 }}>
+          <ListDecks />
+          <AddDeck />
+        </View>
       </Provider>
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
