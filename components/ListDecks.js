@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { decksRetrieve } from "../actions";
 import { getDecks } from "../utils/api";
+import { AppLoading } from "expo";
 
 function Deck({ title, questions }) {
   return (
@@ -12,24 +13,20 @@ function Deck({ title, questions }) {
   );
 }
 class ListDecks extends Component {
-  async componentDidMount() {
+  componentDidMount() {
     const { dispatch } = this.props;
-    const json = await getDecks();
-    dispatch(decksRetrieve(JSON.parse(data)));
+    getDecks()
+      .then(decks => dispatch(decksRetrieve(decks)))
+      .then(() => this.setState(() => ({ ready: true })));
   }
   renderItem = ({ item }) => {
     return <Deck {...item} />;
   };
   render() {
-    const decks = this.props.decks;
-    console.log(decks);
-
-    if (decks === null) {
-      return (
-        <View style={styles.container}>
-          <Text style={styles.title}>No flashcards available</Text>
-        </View>
-      );
+    const { decks } = this.props;
+    const { ready } = this.state;
+    if (ready === false) {
+      return <AppLoading />;
     }
 
     return (
@@ -48,4 +45,9 @@ const styles = StyleSheet.create({
     paddingTop: 40
   }
 });
-export default connect(state => state)(ListDecks);
+function mapStateToProps(decks) {
+  return {
+    decks
+  };
+}
+export default connect(mapStateToProps)(ListDecks);
