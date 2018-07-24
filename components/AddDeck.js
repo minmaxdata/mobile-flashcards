@@ -8,7 +8,9 @@ import {
   KeyboardAvoidingView,
   AsyncStorage
 } from "react-native";
-import { getFlashcardData } from "../utils/helpers";
+import { deckAdd } from "../actions";
+import { connect } from "react-redux";
+import { saveDeckTitle } from "../utils/api";
 import TextButton from "./TextButton";
 
 function SubmitBtn({ onPress }) {
@@ -16,37 +18,31 @@ function SubmitBtn({ onPress }) {
 }
 class AddDeck extends Component {
   state = {
-    title: "",
-    uuid: "",
-    questions: []
-  };
-  handleTextChange = title => {
-    this.setState(() => {
-      title;
-    });
+    title: ""
   };
   submit = () => {
-    const key = 24;
-    const entry = this.state;
+    const { title } = this.state;
 
-    // Update Redux
-
-    this.setState(() => ({ title: "", uuid: "", questions: [] }));
+    console.log("state ", JSON.stringify(this.state));
+    this.props.dispatch(deckAdd(title));
+    //this.props.navigation.navigate("Deck", { deckId });
+    saveDeckTitle(title);
 
     // Navigate to home
 
-    // Save to "DB"
+    this.setState({ title: "" });
 
     // Clear local notification
   };
   render() {
-    const { title, uuid, questions } = this.state;
+    const { title } = this.state;
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <TextInput
+          placeholder="Deck Subject"
           style={styles.input}
           value={title}
-          onChangeText={this.handleTextChange}
+          onChangeText={title => this.setState({ title })}
         />
         <SubmitBtn onPress={this.submit} />
       </KeyboardAvoidingView>
@@ -70,4 +66,7 @@ const styles = StyleSheet.create({
     margin: 50
   }
 });
-export default AddDeck;
+export default connect(
+  null,
+  { deckAdd }
+)(AddDeck);

@@ -28,7 +28,8 @@ class ListDecks extends Component {
   render() {
     const { decks } = this.props;
     const { ready } = this.state;
-    console.log(Object.values(decks));
+    var obj = { javascript: { title: "javascript" } };
+    console.log(obj.length);
     if (ready === false) {
       return <AppLoading />;
     }
