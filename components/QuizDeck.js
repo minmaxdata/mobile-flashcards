@@ -16,3 +16,4 @@ class QuizDeck extends Component {
     );
   }
 }
+export default QuizDeck;

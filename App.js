@@ -13,7 +13,6 @@ const middlewares = [];
 middlewares.push(createLogger());
 const store = createStore(
   rootReducer,
-  {},
   composeWithDevTools(applyMiddleware(...middlewares))
 );
 

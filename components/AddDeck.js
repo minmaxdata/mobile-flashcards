@@ -70,3 +70,4 @@ const styles = StyleSheet.create({
     margin: 50
   }
 });
+export default AddDeck;

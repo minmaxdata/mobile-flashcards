@@ -16,3 +16,4 @@ class ListCard extends Component {
     );
   }
 }
+export default AddCard;

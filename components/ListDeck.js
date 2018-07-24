@@ -5,8 +5,7 @@ import { getFlashcardData } from "../utils/helpers";
 class ListDeck extends Component {
   state = {
     question: "",
-    answer: "",
-    uuid: ""
+    answer: ""
   };
   render() {
     return (
@@ -16,3 +15,4 @@ class ListDeck extends Component {
     );
   }
 }
+export default ListDeck;

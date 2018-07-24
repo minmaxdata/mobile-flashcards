@@ -13,6 +13,9 @@ function Deck({ title, questions }) {
   );
 }
 class ListDecks extends Component {
+  state = {
+    ready: false
+  };
   componentDidMount() {
     const { dispatch } = this.props;
     getDecks()
@@ -25,13 +28,25 @@ class ListDecks extends Component {
   render() {
     const { decks } = this.props;
     const { ready } = this.state;
+    console.log(Object.values(decks));
     if (ready === false) {
       return <AppLoading />;
+    }
+    if (decks.length === undefined) {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.title}>No Flashcards are Available</Text>
+        </View>
+      );
     }
 
     return (
       <View style={styles.container}>
-        <FlatList data={Object.values(decks)} renderItem={this.renderItem} />
+        <FlatList
+          data={Object.values(decks)}
+          renderItem={this.renderItem}
+          keyExtractor={item => item.title}
+        />
       </View>
     );
   }
