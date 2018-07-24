@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { deckAdd } from "../actions";
 import { connect } from "react-redux";
-import { saveDeckTitle } from "../utils/api";
+import { saveDeckTitle, clearStorage } from "../utils/api";
 import TextButton from "./TextButton";
 
 function SubmitBtn({ onPress }) {
@@ -20,11 +20,10 @@ class AddDeck extends Component {
     title: ""
   };
   submit = () => {
+    //clearStorage();
     const { title } = this.state;
 
-    console.log("state ", JSON.stringify(this.state));
-    console.log("props ", this.props);
-    this.props.dispatch(deckAdd(title));
+    this.props.deckAdd(title);
     //this.props.navigation.navigate("Deck", { deckId });
     saveDeckTitle(title);
 
@@ -39,7 +38,7 @@ class AddDeck extends Component {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <TextInput
-          placeholder="Deck Subject"
+          placeholder="FlashCard Topic"
           style={styles.input}
           value={title}
           onChangeText={title => this.setState({ title })}

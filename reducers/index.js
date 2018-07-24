@@ -5,6 +5,7 @@ const initialState = {
 };
 
 function decks(state = initialState, action) {
+  console.log(" decks reducer ", state.decks, action);
   switch (action.type) {
     case DECKS_RETRIEVE:
       return {

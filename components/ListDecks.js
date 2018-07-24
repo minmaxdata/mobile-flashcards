@@ -29,18 +29,19 @@ class ListDecks extends Component {
     const { decks } = this.props;
     const { ready } = this.state;
     var obj = { javascript: { title: "javascript" } };
-    console.log(obj.length);
+    console.log(decks);
     if (ready === false) {
       return <AppLoading />;
     }
-    if (decks.length === undefined) {
+    /*
+    if (decks === undefined) {
       return (
         <View style={styles.container}>
           <Text style={styles.title}>No Flashcards are Available</Text>
         </View>
       );
     }
-
+*/
     return (
       <View style={styles.container}>
         <FlatList

@@ -16,8 +16,8 @@ export const getDeck = deckId => {
     return decks[deckId];
   });
 };
-export function saveDeckTitle({ title }) {
-  alert(title);
+export function saveDeckTitle(title) {
+  console.log("title", title);
   const id = title.toLowerCase();
   return AsyncStorage.mergeItem(
     DECKS_STORAGE_KEY,
@@ -27,13 +27,17 @@ export function saveDeckTitle({ title }) {
     })
   );
 }
-export function addCardToDeck({ title, card }) {
+export function addCardToDeck(title, card) {
   return AsyncStorage.mergeItem(
     DECKS_STORAGE_KEY,
     JSON.stringify({
       [title]: card
     })
   );
+}
+export function clearStorage() {
+  console.log("clearStorage");
+  AsyncStorage.removeItem(DECKS_STORAGE_KEY);
 }
 /*
 getDecks: return all of the decks along with their titles, questions, and answers.
