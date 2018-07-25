@@ -6,11 +6,15 @@ function decks(state = initialState, action) {
   console.log(" decks reducer ", state.decks, action);
   switch (action.type) {
     case DECKS_RETRIEVE:
-      return { ...state, ...action.decks };
+      return {
+        ...state,
+        ...action.decks
+      };
     case DECK_ADD:
       return { ...state, ...action.deck };
     case CARD_ADD:
-      return {};
+      const { id, card } = action;
+      return { ...state };
     default:
       return state;
   }

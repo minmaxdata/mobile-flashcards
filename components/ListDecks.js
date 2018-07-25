@@ -22,21 +22,21 @@ class ListDecks extends Component {
       .then(decks => dispatch(decksRetrieve(decks)))
       .then(() => this.setState(() => ({ ready: true })));
   }
+
   renderItem = ({ item }) => {
     return <Deck {...item} />;
   };
   render() {
     const { decks } = this.props;
     const { ready } = this.state;
-    var obj = { javascript: { title: "javascript" } };
+
     //clearStorage();
 
-    console.log("decks", decks);
+    console.log("ListDecks", Object.keys(decks).length);
     if (ready === false) {
       return <AppLoading />;
     }
-
-    if (decks === undefined) {
+    if (Object.keys(decks).length === 0) {
       return (
         <View style={styles.container}>
           <Text style={styles.title}>No Flashcards are Available</Text>
@@ -44,7 +44,15 @@ class ListDecks extends Component {
       );
     }
 
-    return <View style={styles.container} />;
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data={Object.values(decks["deck"])}
+          renderItem={this.renderItem}
+          keyExtractor={item => item.title}
+        />
+      </View>
+    );
   }
 }
 const styles = StyleSheet.create({

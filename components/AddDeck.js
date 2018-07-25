@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { deckAdd } from "../actions";
 import { connect } from "react-redux";
-import { saveDeckTitle, clearStorage } from "../utils/api";
+import { getDecks, saveDeckTitle } from "../utils/api";
 import TextButton from "./TextButton";
 
 function SubmitBtn({ onPress }) {
@@ -20,14 +20,14 @@ class AddDeck extends Component {
     title: ""
   };
   submit = () => {
-    //clearStorage();
     const { title } = this.state;
     const id = title.toLowerCase();
     const deck = {
       [id]: { title: title, questions: [] }
     };
-    //this.props.deckAdd(title);
-    //this.props.navigation.navigate("Deck", { deckId });
+    this.props.deckAdd(deck);
+    //this.props.navigation.navigate("Deck", { id });
+    console.log("add decks", deck);
     saveDeckTitle(deck);
 
     // Navigate to home

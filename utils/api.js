@@ -1,25 +1,53 @@
 import { AsyncStorage } from "react-native";
 const DECKS_STORAGE_KEY = "FlashCards:decks";
-
+let data = {
+  React: {
+    title: "React",
+    questions: [
+      {
+        question: "What is React?",
+        answer: "A library for managing user interfaces"
+      },
+      {
+        question: "Where do you make Ajax requests in React?",
+        answer: "The componentDidMount lifecycle event"
+      }
+    ]
+  },
+  JavaScript: {
+    title: "JavaScript",
+    questions: [
+      {
+        question: "What is a closure?",
+        answer:
+          "The combination of a function and the lexical environment within which that function was declared."
+      }
+    ]
+  }
+};
 export function getDecks() {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY, (err, result) => {
-    console.log("decks", result);
-    return JSON.parse(result);
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(results => {
+    return results === null ? initialData() : JSON.parse(results);
   });
 }
+
+export function initialData() {
+  AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data));
+  return data;
+}
+
 /*
 `AsyncStorage.getItem(STORAGE_KEY).then(result => alert(result))`?
 */
 export const getDeck = deckId => {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => {
     const decks = JSON.parse(result);
-    console.log("decks ", decks);
+    console.log("getDeck ", decks);
     return decks[deckId];
   });
 };
 export function saveDeckTitle(deck) {
-  console.log("deck", deck);
-
+  console.log("saveDeckTitle", deck);
   return AsyncStorage.mergeItem(
     DECKS_STORAGE_KEY,
     JSON.stringify({

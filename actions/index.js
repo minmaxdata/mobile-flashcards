@@ -1,4 +1,4 @@
-export const DECKS_RETRIEVE = " DECKS_RETRIEVE";
+export const DECKS_RETRIEVE = "DECKS_RETRIEVE";
 export const DECK_ADD = "DECK_ADD";
 export const CARD_ADD = "CARD_ADD";
 
@@ -9,10 +9,10 @@ export function decksRetrieve(decks) {
   };
 }
 
-export function deckAdd(title) {
+export function deckAdd(deck) {
   return {
     type: DECK_ADD,
-    title
+    deck
   };
 }
 export function cardAdd(id, card) {
