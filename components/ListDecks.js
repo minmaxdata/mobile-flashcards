@@ -30,7 +30,7 @@ class ListDecks extends Component {
     const { decks } = this.props;
     const { ready } = this.state;
 
-    //clearStorage();
+    clearStorage();
 
     console.log("ListDecks", Object.keys(decks).length);
     if (ready === false) {
@@ -47,7 +47,7 @@ class ListDecks extends Component {
     return (
       <View style={styles.container}>
         <FlatList
-          data={Object.values(decks["deck"])}
+          data={Object.values(decks)}
           renderItem={this.renderItem}
           keyExtractor={item => item.title}
         />
